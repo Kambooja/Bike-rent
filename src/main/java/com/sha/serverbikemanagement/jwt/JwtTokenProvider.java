@@ -61,8 +61,7 @@ public class JwtTokenProvider {
         String token = resolveToken(request);
         if(token==null) return false;
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-        if (claims.getExpiration().before(new Date())) return false;
-        else return true;
+        return !claims.getExpiration().before(new Date());
     }
 
     public String resolveToken(HttpServletRequest request){

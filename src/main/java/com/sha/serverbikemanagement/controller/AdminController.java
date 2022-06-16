@@ -1,7 +1,7 @@
 package com.sha.serverbikemanagement.controller;
 
 import com.sha.serverbikemanagement.model.Bike;
-import com.sha.serverbikemanagement.model.Transaction;
+import com.sha.serverbikemanagement.model.StringResponse;
 import com.sha.serverbikemanagement.model.User;
 import com.sha.serverbikemanagement.service.BikeService;
 import com.sha.serverbikemanagement.service.TransactionService;
@@ -9,10 +9,7 @@ import com.sha.serverbikemanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AdminController {
@@ -26,7 +23,7 @@ public class AdminController {
     @Autowired
     private TransactionService transactionService;
 
-    @GetMapping("/api/admin/user-update")
+    @PutMapping("/api/admin/user-update")
     public ResponseEntity<?> updateUser(@RequestBody User user){
         User existUser = userService.findByUsername(user.getUsername());
         if(existUser !=null && existUser.getId().equals(user.getId())){
@@ -49,11 +46,11 @@ public class AdminController {
 
     @GetMapping("/api/admin/user-number")
     public ResponseEntity<?> numberOfUsers(){
-       // return new ResponseEntity<>(userService.numberOfUsers(),HttpStatus.OK);
-        String stringResponse;
         Long number = userService.numberOfUsers();
-        stringResponse= number.toString();
-        return new ResponseEntity<>(stringResponse,HttpStatus.OK);
+        StringResponse response = new StringResponse();
+        response.setResponse(number.toString());
+        //to return it, we will use String Response because long is not a suitable response for rest api
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/api/admin/bike-create")
@@ -61,7 +58,7 @@ public class AdminController {
         return new ResponseEntity<>(bikeService.saveBike(bike), HttpStatus.OK);
     }
 
-    @PostMapping("/api/admin/bike-update")
+    @PutMapping("/api/admin/bike-update")
     public ResponseEntity<?> updateBike(@RequestBody Bike bike){
         return new ResponseEntity<>(bikeService.updateBike(bike), HttpStatus.OK);
     }

@@ -20,5 +20,5 @@ public class Bike {
     private Double price;
 
     @Column(name = "description")
-    private Double description;
+    private String description;
 }

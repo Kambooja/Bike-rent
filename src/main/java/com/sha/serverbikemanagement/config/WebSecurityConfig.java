@@ -22,36 +22,44 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    @Autowired
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private UserDetailsService userDetailsService;
 
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
 
-        //Cross origin resource sharing: localhost:8080, localhost:4200
+        //Cross-origin resource sharing: localhost:8080, localhost:4200
         http.cors().and()
                 .authorizeRequests()
-                .antMatchers("/resources/**","/error","/api/user/**").permitAll()
+                //These are public paths
+                .antMatchers("/resources/**",  "/error", "/api/user/**").permitAll()
+                //These can be reachable for just have admin role.
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/user/**").hasRole("USER")
-                .anyRequest().authenticated()// expressionURLAuthorizationConfigurer
+                //All remaining paths should need authentication.
+                .anyRequest().fullyAuthenticated()
                 .and()
+                //logout will log the user out by invalidated session.
                 .logout().permitAll()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/api/user.logout","POST"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/api/user/logout", "POST"))
                 .and()
+                //login form and path
                 .formLogin().loginPage("/api/user/login").and()
+                //enable basic authentication
                 .httpBasic().and()
-                //cross site request forgery
+                //We will handle it later.
+                //Cross side request forgery
                 .csrf().disable();
 
         //jwt filter
-        http.addFilter(new JWTAuthorizationFilter(authenticationManager(),jwtTokenProvider));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtTokenProvider));
     }
 
     @Override
@@ -59,10 +67,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    public WebMvcConfigurer corsConfigurer(){
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
-            public void addCorsMappings(CorsRegistry registry){
+            public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
             }
         };

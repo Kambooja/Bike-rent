@@ -38,9 +38,9 @@ public class UserController {
     public ResponseEntity<?> register(@RequestBody User user) {
         if (userService.findByUsername(user.getUsername()) != null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
-        } else {
-            user.setRole(Role.USER);
         }
+        user.setRole(Role.USER);
+
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
