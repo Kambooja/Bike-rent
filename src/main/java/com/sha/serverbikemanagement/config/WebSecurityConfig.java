@@ -1,5 +1,7 @@
 package com.sha.serverbikemanagement.config;
 
+import com.sha.serverbikemanagement.jwt.JWTAuthorizationFilter;
+import com.sha.serverbikemanagement.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -46,6 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().and()
                 //cross site request forgery
                 .csrf().disable();
+
+        //jwt filter
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(),jwtTokenProvider));
     }
 
     @Override
@@ -60,5 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
             }
         };
+
     }
+
+
 }

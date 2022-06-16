@@ -1,14 +1,18 @@
 package com.sha.serverbikemanagement.controller;
 
+import com.sha.serverbikemanagement.jwt.JwtTokenProvider;
 import com.sha.serverbikemanagement.model.Role;
 import com.sha.serverbikemanagement.model.Transaction;
 import com.sha.serverbikemanagement.model.User;
 import com.sha.serverbikemanagement.service.BikeService;
 import com.sha.serverbikemanagement.service.TransactionService;
 import com.sha.serverbikemanagement.service.UserService;
+import liquibase.pro.packaged.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +23,8 @@ import java.time.LocalDateTime;
 @RestController
 public class UserController {
 
+    @Autowired
+    private JwtTokenProvider tokenProvider;
     @Autowired
     private UserService userService;
 
@@ -40,10 +46,15 @@ public class UserController {
 
     @GetMapping("/api/user/login")
     public ResponseEntity<?> getUser(Principal principal){
-        if(principal == null || principal.getName() == null){
+        if(principal == null){
             return ResponseEntity.ok(principal);
         }
-        return new ResponseEntity<>(userService.findByUsername(principal.getName()), HttpStatus.OK);
+        UsernamePasswordAuthenticationToken authenticationToken =
+                (UsernamePasswordAuthenticationToken) principal;
+        User user = userService.findByUsername(authenticationToken.getName());
+        Authentication authentication = authenticationToken;
+        user.setToken(tokenProvider.generateToken(authenticationToken));
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/api/user/rent")
