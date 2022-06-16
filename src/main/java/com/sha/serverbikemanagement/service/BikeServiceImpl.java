@@ -5,8 +5,8 @@ import com.sha.serverbikemanagement.model.Bike;
 import com.sha.serverbikemanagement.repository.BikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -36,6 +36,7 @@ public class BikeServiceImpl implements BikeService{
     public List<Bike> findAllBikes(){
         return bikeRepository.findAll();
     }
+
     @Override
     public Long numberOfBikes(){
         return bikeRepository.count();
