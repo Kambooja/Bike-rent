@@ -5,4 +5,6 @@ export class Transaction{
         this.transactionDate=transactionDate;
         this.id=id;
     }
+
+
 }
