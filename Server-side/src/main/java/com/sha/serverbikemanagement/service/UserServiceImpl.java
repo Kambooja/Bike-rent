@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public User saveUser(User user){
+    public User saveUser(final User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return  userRepository.save(user);
     }
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService{
         userRepository.deleteById(id);
     }
     @Override
-    public User findByUsername(String username){
+    public User findByUsername(final String username){
         return userRepository.findByUsername(username).orElse(null);
     }
     @Override

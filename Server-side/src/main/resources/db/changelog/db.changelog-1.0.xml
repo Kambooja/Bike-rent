@@ -3,12 +3,12 @@
     <changeSet id="1" author="sha">
         <sql>
             CREATE TABLE user (
-                                  Id BIGINT NOT NULL AUTO_INCREMENT,
+                                  id BIGINT NOT NULL AUTO_INCREMENT,
                                   username VARCHAR(255) NOT NULL,
                                   password VARCHAR(255) NOT NULL,
                                   name VARCHAR(255) NOT NULL,
                                   role VARCHAR(255) NOT NULL,
-                                  CONSTRAINT PK_id PRIMARY KEY (Id)
+                                  CONSTRAINT PK_id PRIMARY KEY (id)
             );
         </sql>
         <rollback>
@@ -18,11 +18,11 @@
     <changeSet id="2" author="sha">
         <sql>
             CREATE TABLE bike (
-                                     Id BIGINT NOT NULL AUTO_INCREMENT,
+                                     id BIGINT NOT NULL AUTO_INCREMENT,
                                      name VARCHAR(255) NOT NULL,
                                      price DOUBLE,
                                      description VARCHAR(1000),
-                                     CONSTRAINT PK_id PRIMARY KEY (Id)
+                                     CONSTRAINT PK_id PRIMARY KEY (id)
             );
         </sql>
         <rollback>
@@ -59,15 +59,15 @@
     <changeSet id="4" author="sha">
         <sql>
             CREATE TABLE transaction(
-                                        Id BIGINT NOT NULL AUTO_INCREMENT,
+                                        id BIGINT NOT NULL AUTO_INCREMENT,
                                         bike_id BIGINT NOT NULL,
                                         user_id BIGINT NOT NULL,
                                         rentDate DATETIME NOT NULL,
                                         returnDate DATETIME,
-                                        CONSTRAINT PK_id PRIMARY KEY (Id),
-                                        CONSTRAINT fk_tran_bike FOREIGN KEY (bike_id) REFERENCES bike(Id) ON DELETE CASCADE ON UPDATE
+                                        CONSTRAINT PK_id PRIMARY KEY (id),
+                                        CONSTRAINT fk_tran_bike FOREIGN KEY (bike_id) REFERENCES bike(id) ON DELETE CASCADE ON UPDATE
                                             CASCADE,
-                                        CONSTRAINT fk_tran_user FOREIGN KEY (user_id) REFERENCES user(Id) ON DELETE CASCADE ON UPDATE
+                                        CONSTRAINT fk_tran_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE
                                             CASCADE
             );
         </sql>

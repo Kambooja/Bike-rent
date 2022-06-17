@@ -16,12 +16,12 @@ public class Transaction {
 
     //user rent many bikes
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "bike_id", referencedColumnName = "Id")
+    @JoinColumn(name = "bike_id", referencedColumnName = "id")
     private Bike bike;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "Id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @Column(name = "rentDate")

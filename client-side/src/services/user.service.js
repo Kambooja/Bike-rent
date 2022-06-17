@@ -37,21 +37,22 @@ class UserService {
 
     register(user) {
         return axios.post(API_URL + 'registration', JSON.stringify(user),
-            {headers: {"Content-Type":"application/json; charset=UTF-8"}});
+            {headers: {"Content-Type": "application/json; charset=UTF-8"}});
     }
 
     findAllBikes() {
         return axios.get(API_URL + "bikes",
-            {headers: {"Content-Type":"application/json; charset=UTF-8"}});
+            {headers: {"Content-Type": "application/json; charset=UTF-8"}});
     }
 
-    rentBike(transaction) {
-        return axios.post(API_URL + "rent", JSON.stringify(transaction),
-            {headers: {"Content-Type":"application/json; charset=UTF-8"}});
+    purchaseBike(transaction) {
+        return axios.post(API_URL + "purchase", JSON.stringify(transaction),
+            {headers: {"Content-Type": "application/json; charset=UTF-8"}});
     }
+
     returnBike(transaction) {
-        return axios.post(API_URL + "return", JSON.stringify(transaction),
-            {headers: {"Content-Type":"application/json; charset=UTF-8"}});
+        return axios.post(API_URL + "purchase", JSON.stringify(transaction),
+            {headers: {"Content-Type": "application/json; charset=UTF-8"}});
     }
 
 }

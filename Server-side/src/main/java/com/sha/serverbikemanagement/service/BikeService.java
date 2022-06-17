@@ -9,7 +9,7 @@ public interface BikeService {
 
     Bike updateBike(Bike bike);
 
-    void deleteBike(Long bikeId);
+    void deleteBike(Long bikeid);
 
     List<Bike> findAllBikes();
 

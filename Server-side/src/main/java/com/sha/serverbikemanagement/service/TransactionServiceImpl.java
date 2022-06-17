@@ -2,6 +2,7 @@ package com.sha.serverbikemanagement.service;
 
 import com.sha.serverbikemanagement.model.Transaction;
 import com.sha.serverbikemanagement.repository.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class TransactionServiceImpl  implements TransactionService{
 
 
+    @Autowired
     private TransactionRepository transactionRepository;
 
     @Override
