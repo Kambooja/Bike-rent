@@ -45,13 +45,13 @@ class UserService {
             {headers: {"Content-Type": "application/json; charset=UTF-8"}});
     }
 
-    purchaseBike(transaction) {
-        return axios.post(API_URL + "purchase", JSON.stringify(transaction),
+    rentBike(transaction) {
+        return axios.post(API_URL + "rent", JSON.stringify(transaction),
             {headers: {"Content-Type": "application/json; charset=UTF-8"}});
     }
 
     returnBike(transaction) {
-        return axios.post(API_URL + "purchase", JSON.stringify(transaction),
+        return axios.post(API_URL + "return", JSON.stringify(transaction),
             {headers: {"Content-Type": "application/json; charset=UTF-8"}});
     }
 

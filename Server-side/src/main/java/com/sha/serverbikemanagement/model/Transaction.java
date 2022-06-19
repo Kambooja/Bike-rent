@@ -25,11 +25,11 @@ public class Transaction {
     private User user;
 
     @Column(name = "rentDate")
-    @JoinColumn(name = "rentDate", referencedColumnName = "id")
+    @JoinColumn(name = "rent_date", referencedColumnName = "id")
     private LocalDateTime rentDate;
 
 
-    @Column(name = "returnDate")
+    @Column(name = "return_date")
     private LocalDateTime returnDate;
 
 

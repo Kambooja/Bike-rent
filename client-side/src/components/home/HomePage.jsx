@@ -33,14 +33,14 @@ class HomePage extends React.Component{
       });
   }
 
-  purchaseBike(bike) {
+  rentBike(bike) {
     if(!this.state.currentUser){
       this.setState({errorMessage: "You should sign in to rent a bike"});
       return;
     }
 
     var transaction = new Transaction(this.state.currentUser, bike);
-    UserService.purchaseBike(transaction)
+    UserService.rentBike(transaction)
       .then(data => {
         this.setState({infoMessage: "Mission is completed."});
       },error => {
@@ -110,7 +110,7 @@ class HomePage extends React.Component{
                     <button className="btn btn-info" onClick={() => this.detail(bike)}>Detail</button>
                   </td>
                   <td>
-                    <button className="btn btn-success" onClick={() => this.purchaseBike(bike)}>Purchase</button>
+                    <button className="btn btn-success" onClick={() => this.rentBike(bike)}>Rent bike</button>
                   </td>
                   <td>
                     <button className="btn btn-success" onClick={() => this.returnBike(bike)}>Return</button>

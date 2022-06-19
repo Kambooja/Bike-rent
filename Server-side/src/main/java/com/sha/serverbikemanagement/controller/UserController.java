@@ -7,7 +7,6 @@ import com.sha.serverbikemanagement.model.User;
 import com.sha.serverbikemanagement.service.BikeService;
 import com.sha.serverbikemanagement.service.TransactionService;
 import com.sha.serverbikemanagement.service.UserService;
-import liquibase.pro.packaged.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +59,8 @@ public class UserController {
     @PostMapping("/api/user/rent")
     public ResponseEntity<?> rentBike(@RequestBody Transaction transaction){
         transaction.setRentDate(LocalDateTime.now());
-        return new ResponseEntity<>(transactionService.saveTransaction(transaction), HttpStatus.CREATED);
+        transactionService.saveTransaction(transaction);
+        return new ResponseEntity<>(transaction, HttpStatus.CREATED);
 
     }
 

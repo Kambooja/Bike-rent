@@ -62,8 +62,8 @@
                                         id BIGINT NOT NULL AUTO_INCREMENT,
                                         bike_id BIGINT NOT NULL,
                                         user_id BIGINT NOT NULL,
-                                        rentDate DATETIME NOT NULL,
-                                        returnDate DATETIME,
+                                        rent_date DATETIME NOT NULL,
+                                        return_date DATETIME,
                                         CONSTRAINT PK_id PRIMARY KEY (id),
                                         CONSTRAINT fk_tran_bike FOREIGN KEY (bike_id) REFERENCES bike(id) ON DELETE CASCADE ON UPDATE
                                             CASCADE,
