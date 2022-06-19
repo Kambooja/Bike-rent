@@ -25,6 +25,7 @@ public class Transaction {
     private User user;
 
     @Column(name = "rentDate")
+    @JoinColumn(name = "rentDate", referencedColumnName = "id")
     private LocalDateTime rentDate;
 
 

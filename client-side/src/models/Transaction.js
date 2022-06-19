@@ -1,8 +1,8 @@
 export class Transaction {
-  constructor(user, bike, purchaseDate, id){
+  constructor(user, bike, rentDate, id){
     this.user = user;
     this.bike = bike;
-    this.purchaseDate = purchaseDate;
+    this.rentDate = rentDate;
     this.id = id;
   }
 }

@@ -72,7 +72,7 @@ class HomePage extends React.Component{
       <div className="col-md-12">
       {infoMessage &&
         <div className="alert alert-success">
-          <strong>Successfull! </strong> {infoMessage}
+          <strong>Successfully! </strong> {infoMessage}
           <button type="button" className="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -94,6 +94,7 @@ class HomePage extends React.Component{
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Price</th>
+              <th scope="col">Rented?</th>
               <th scope="col">Detail</th>
               <th scope="col">Action</th>
             </tr>
@@ -104,6 +105,7 @@ class HomePage extends React.Component{
                   <th scope="row">{index + 1}</th>
                   <td>{bike.name}</td>
                   <td>{'$ ' + bike.price}</td>
+                  <td>{'No ' }</td>
                   <td>
                     <button className="btn btn-info" onClick={() => this.detail(bike)}>Detail</button>
                   </td>

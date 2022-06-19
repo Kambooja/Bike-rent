@@ -9,7 +9,8 @@ public class ServerBikeManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ServerBikeManagementApplication.class, args);
 	}
-	{
+	static {
+		System.out.println("START SERVER");
 	}
 
 }

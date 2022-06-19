@@ -1,7 +1,6 @@
 import React from 'react';
 import './AdminPage.css';
 import AdminService from '../../services/admin.service';
-import UserService from '../../services/user.service';
 import {User} from '../../models/user';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -79,7 +78,7 @@ class AdminPage extends React.Component {
       return;
     }
     var userList = this.state.users;
-    let itemIndex = userList.findIndex(item => item.id == user.id);
+    let itemIndex = userList.findIndex(item => item.id === user.id);
     if(itemIndex !== -1){
       userList.splice(itemIndex, 1);
       this.setState({
@@ -120,7 +119,7 @@ class AdminPage extends React.Component {
 
   updateUser(user){
     var userList = this.state.users;
-    let itemIndex = userList.findIndex(item => item.id == user.id);
+    let itemIndex = userList.findIndex(item => item.id === user.id);
     userList[itemIndex] = user;
   }
 
